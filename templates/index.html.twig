@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<br>
+{% if not app.user %}
+
+    {% else %}
+    <div class="jumbotron text-center">
+        <h1>Welcome {{app.user.firstName}} {{app.user.lastName}}</h1>
+    </div>
+    {% for message in app.flashes("success") %}
+        <div class="alert alert-success col-md-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+    {% if is_granted('ROLE_ADMIN')%}
+        <a href="{{ path('registration') }}" style="text-decoration: none; margin-left: 10px;">
+            <div class="card text-white bg-primary mb-3" style="display: inline-block;">
+                <div class="card-body">
+                    <h4 class="card-title">Registration</h4>
+                <p class="card-text">Registrate a new admin, teacher or student in the database</p>
+                </div>
+            </div>
+            </a>
+            <a href="{{ path('searchByClass') }}" style="text-decoration: none; margin-left: 10px;">
+                <div class="card text-white bg-secondary mb-3" style="display: inline-block;">
+                    <div class="card-body">
+                        <h4 class="card-title">Results</h4>
+                    <p class="card-text">Search results in the database</p>
+                    </div>
+                </div>
+                </a>            
+            <a href="{{ path('relation') }}" style="text-decoration: none; color: white; margin-left: 10px;">
+                <div class="card text-white bg-primary mb-3" style="display: inline-block;">
+                    <div class="card-body">
+                        <h4 class="card-title">Relation</h4>
+                    <p class="card-text">Make a relation between teachers and courses</p>
+                    </div>
+                </div>
+            </a>
+        <a href="{{ path('addCourse') }}" style="text-decoration: none; margin-left: 10px;">
+        <div class="card text-white bg-secondary mb-3" style="display: inline-block;">
+            <div class="card-body">
+                <h4 class="card-title">Add course</h4>
+            <p class="card-text">Add a new course in the database</p>
+            </div>
+        </div>
+        </a>
+        <a href="{{ path('addUE') }}" style="text-decoration: none; color: white; margin-left: 10px;">
+            <div class="card text-white bg-primary mb-3" style="display: inline-block;">
+                <div class="card-body">
+                    <h4 class="card-title">Add UE</h4>
+                <p class="card-text">Add a new UE in the database</p>
+                </div>
+            </div>
+        </a>
+        
+        <a href="{{ path('registration') }}#userlist" style="text-decoration: none; color: white; margin-left: 10px;">
+            <div class="card text-white bg-secondary mb-3" style="display: inline-block;">
+                <div class="card-body">
+                <h4 class="card-title">User List</h4>
+                <p class="card-text">View and manage all users</p>
+                </div>
+            </div>
+        </a>
+    {% endif %}
+    {% if is_granted('ROLE_USER') %}
+    <a href="{{ path('registrationToCourse') }}" style="text-decoration: none; color: white; margin-left: 10px;">
+        <div class="card text-white bg-primary mb-3" style="display: inline-block;">
+            <div class="card-body">
+            <h4 class="card-title">My courses</h4>
+            <p class="card-text">View your courses and register yourself to another</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="{{ path('dashboard', {username: app.user.username}) }}" style="text-decoration: none; color: white; margin-left: 10px;">
+        <div class="card text-white bg-secondary mb-3" style="display: inline-block;">
+            <div class="card-body">
+            <h4 class="card-title">Dashboard</h4>
+            <p class="card-text">View all your notes</p>
+            </div>
+        </div>
+    </a> 
+    
+    {% endif %}
+    {% if is_granted('ROLE_TEACHER') or (is_granted('ROLE_ADMIN'))%}
+    <a href="{{ path('addNote') }}" style="text-decoration: none; color: white; margin-left: 10px;">
+        <div class="card text-white bg-primary mb-3" style="display: inline-block;">
+            <div class="card-body">
+            <h4 class="card-title">Notes</h4>
+            <p class="card-text">Add sutdent notes</p>
+            </div>
+        </div>
+    </a>
+    <a href="{{ path('addEvent') }}" style="text-decoration: none; color: white; margin-left: 10px;">
+        <div class="card text-white bg-secondary mb-3" style="display: inline-block;">
+            <div class="card-body">
+            <h4 class="card-title">Event</h4>
+            <p class="card-text">Add a event</p>
+            </div>
+        </div>
+    </a>
+    {% endif %}
+    <a href="{{ path('edit', {username: app.user.username}) }}" style="text-decoration: none; margin-left: 10px;">
+        <div class="card text-white bg-primary mb-3" style="display: inline-block;">
+            <div class="card-body">
+                <h4 class="card-title">Edit</h4>
+                <p class="card-text">Edit your personnal informations</p>
+            </div>
+        </div>
+    </a>
+    <a href="{{ path('message') }}" style="text-decoration: none; color: white; margin-left: 10px;">
+        <div class="card text-white bg-secondary mb-3" style="display: inline-block;">
+            <div class="card-body">
+            <h4 class="card-title">Messages</h4>
+            <p class="card-text">Send or view your messages</p>
+            </div>
+        </div>
+    </a>
+{% endif %}
+{% endblock %}

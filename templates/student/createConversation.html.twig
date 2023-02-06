@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron text-center">
+    <h1>{{controller_name}}</h1>
+  </div>
+  {{form_start(form)}}
+  {{ form_errors(form)}}
+  <div class="form-group" style="margin-left: 250px; margin-right: 250px;">
+    <div class="form-row">
+      <div class="col">
+        {{form_row(form.receiver, {'label' : 'Send to'})}}
+        {{form_row(form.message, {'attr':{'placeholder':'Message'}})}}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+      </div>
+    </div>
+  </div>
+  
+  {{form_end(form)}}
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% if user != app.user.username %}
+	{% include "error/accesDenied.html.twig" %}
+{% else %}
+<center>
+	<br>	
+	{% for message in app.flashes("success") %}
+	  <div class="alert alert-success col-md-5">
+		{{ message }}
+	  </div>
+	{% endfor %}
+	{% for message in app.flashes("danger") %}
+	<br>
+	<div class="alert alert-danger">
+		{{ message }}
+	</div>
+	{% endfor %}
+</center>
+	<div class="jumbotron text-center">
+		<h1>{{controller_name}}</h1>
+	</div>
+
+	<div class="container">
+		{{form_start(form)}}
+		{{ form_errors(form) }}
+
+		<div class="form-row">
+			<div class="col">
+				{{form_row(form.first_name, {'attr':{'placeholder':'First Name'}})}}
+			</div>
+			<div class="col">
+				{{form_row(form.last_name, {'attr':{'placeholder':'Last Name'}})}}
+			</div>
+		</div>
+			<div class="form-row">
+				<div class="col">
+					{{form_row(form.username, {'attr':{'placeholder':'Username','readonly':''}})}}
+				</div>
+				<div class="col">
+					{{form_row(form.type, {'attr':{'readonly':''}})}}
+				</div>
+				<div class="col">
+					{{form_row(form.class, {'attr':{'placeholder':'None', 'readonly':''}})}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					{{form_row(form.phone, {'attr':{'placeholder':'Ex : 0412345678'}})}}
+				</div>
+				<div class="col">
+					{{form_row(form.email, {'attr':{'placeholder':'Email', 'readonly':''}})}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					{{form_row(form.password, {'attr':{'placeholder':'Password'}})}}
+				</div>
+				<div class="col">
+					{{form_row(form.confirm_password, {'attr':{'placeholder':'Password'}})}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Update</button>
+				</div>
+			</div>
+	</div>
+{{form_end(form)}}
+
+{% endif %}
+<br><br><br><br><br><br><br>
+{% endblock %}

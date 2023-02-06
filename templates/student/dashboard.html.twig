@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{% endblock %}
+
+
+{% block body %}
+{% if user != app.user.username %}
+	{% include "error/accesDenied.html.twig" %}
+{% else %}
+
+{% include "student/bodyDashboard.html.twig" %}
+
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% include "student/javascriptDashboard.html.twig" %}
+
+{% endblock %}

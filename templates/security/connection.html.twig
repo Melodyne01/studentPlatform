@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<center>
+{% if error %}
+    <div class="alert alert-danger">
+        {{error.messageKey}}
+    </div>
+{% endif %}
+{% for message in app.flashes("success") %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+<div class="jumbotron text-center">
+    <h1>Connection</h1>
+</div>
+    <form action="{{ path('connection') }}" method="post" style="margin-left: 350px; margin-right: 350px;" >
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" required name="_username">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required name="_password">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login">
+                </div>
+            </div>
+        </div>
+    </form>
+
+</center>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+{% endblock %}

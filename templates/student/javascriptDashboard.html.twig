@@ -1,0 +1,28 @@
+{% block javascripts %}
+<script>
+    let categories = document.querySelector("#chart")
+    let categGraph = new Chart(categories, {
+        type: "bar",
+        data: {
+            labels: {{ noteCourse|raw }},
+            datasets: [{
+                label: "Notes",
+                data: {{ noteNote|raw }},
+                backgroundColor: {{ noteColor|raw }}
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 20                          
+                    }                  
+                    
+                }]
+            }
+        }
+    })
+</script>
+{% endblock %}

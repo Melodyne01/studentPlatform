@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron text-center">
+  <h1>Profile of {{ first_name }} {{last_name}}</h1>
+</div>
+
+<div class="container">
+  {{form_start(form)}}
+  {{ form_errors(form) }}
+
+  <div class="form-row">
+    <div class="col">
+      {{form_row(form.first_name, {'attr':{'placeholder':'First Name', 'readonly':''}})}}
+    </div>
+    <div class="col">
+      {{form_row(form.last_name, {'attr':{'placeholder':'Last Name', 'readonly':''}})}}
+    </div>
+  </div>
+    <div class="form-row">
+      <div class="col">
+        {{form_row(form.username, {'attr':{'placeholder':'Username','readonly':''}})}}
+      </div>
+      <div class="col">
+        {{form_row(form.type, {'attr':{'readonly':''}})}}
+      </div>
+      <div class="col">
+        {{form_row(form.class, {'attr':{'placeholder':'None', 'readonly':''}})}}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        {{form_row(form.phone, {'attr':{'placeholder':'Ex : 0412345678', 'readonly':''}})}}
+      </div>
+      <div class="col">
+        {{form_row(form.email, {'attr':{'placeholder':'Email', 'readonly':''}})}}
+      </div>
+    </div>
+    {{form_row(form.password, {'label':false  , 'attr':{ 'style':'display:none'}})}}
+    {{form_row(form.confirm_password, {'label':false  , 'attr':{ 'style':'display:none'}})}}
+</div>
+{{form_end(form)}}
+
+{% include "student/bodyDashboard.html.twig" %}
+
+
+<div class="jumbotron text-center">
+  <h1>Courses</h1>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">ID</th>
+      <th scope="col">Course</th>
+    </tr>
+  </thead>
+
+{% for regist in regisList %}
+<tr>
+  <td>{{regist.id}}</td>
+  <td>{{regist.Course}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
+
+{% block javascripts %}
+
+{% include "student/javascriptDashboard.html.twig" %}
+
+{% endblock %}

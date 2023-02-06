@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<center>
+  {% for message in app.flashes("success") %}
+    <div class="alert alert-success col-md-5">
+      {{ message }}
+    </div>
+  {% endfor %}
+  {% for message in app.flashes("danger") %}
+  <br>
+  <div class="alert alert-danger">
+      {{ message }}
+  </div>
+  {% endfor %}
+</center>
+
+<div class="jumbotron text-center">
+  <h1>{{controller_name}}</h1>
+</div>
+
+{{form_start(form)}}
+
+<div class="container">
+  {{form_start(form)}}
+	{{ form_errors(form) }}
+
+  <div class="form-row">
+    <div class="col">
+      {{form_row(form.first_name, {'attr':{'placeholder':'First Name'}})}}
+    </div>
+    <div class="col">
+      {{form_row(form.last_name, {'attr':{'placeholder':'Last Name'}})}}
+    </div>
+  </div>
+    <div class="form-row">
+      <div class="col">
+        {{form_row(form.type, {'label' : 'Type', 'attr':{'placeholder':'Type'}})}}
+      </div>
+      <div class="col">
+        {{form_row(form.class, {'attr':{'placeholder':'Class'}})}}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        {{form_row(form.password, {'attr':{'placeholder':'Password'}})}}
+      </div>
+      <div class="col">
+        {{form_row(form.confirm_password, {'attr':{'placeholder':'Confirm Password'}})}}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+
+      </div>
+    </div>
+</div>
+{{form_end(form)}}
+
+<br>
+<div id="userlist" class="jumbotron text-center">
+    <h1>Search an user</h1>
+</div>
+
+<br>
+<div class="container">
+	{{form_start(searchForm)}}
+	{{ form_errors(searchForm) }}
+	<div class="form-row">
+	  <div class="col">
+		{{form_row(searchForm.username, {'attr':{'placeholder':'Username'}})}}
+	  </div>
+	  <div class="col">
+		{{form_row(searchForm.class, {'attr':{'placeholder':'Class'}})}}
+    </div>
+    <div class="col">
+      {{form_row(searchForm.type, {'attr':{'placeholder':'Class'}})}}
+      </div>
+	</div>
+	<div class="form-row">
+	  <div class="col">
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
+	  </div>
+	</div>
+</div>
+<br>
+<table class="table table-hover">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Username</th>
+        <th scope="col">Role</th>
+        <th scope="col">Class</th>
+        <th scope="col">Delete</th>
+
+      </tr>
+    </thead>
+{% if userlist %}
+
+{% for user in userlist %}
+
+  <tr>
+    <th scope="row"><a href="{{ path('userprofile', {username: user.username}) }}" style="text-decoration: none; color: black;">{{user.id}}</a></th>
+    <td><a href="{{ path('userprofile', {username: user.username}) }}" style="text-decoration: none; color: black;">{{user.Username}}</a></td>
+    <td><a href="{{ path('userprofile', {username: user.username}) }}" style="text-decoration: none; color: black;">{{user.Type}}</a></td>
+    <td><a href="{{ path('userprofile', {username: user.username}) }}" style="text-decoration: none; color: black;">{{user.Class}}</a></td>
+    <td><a href="{{ path('deleteUser', {id: user.id}) }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+    </svg></a></td>
+  </tr>
+
+{% endfor %}
+{% else %}
+  
+<tr>
+  <th></th>
+  <th></th>
+  <th>No result</th>
+  <th></th>
+  <th></th>
+</tr>
+
+{% endif %}
+</table>
+<br><br>
+{% endblock %}

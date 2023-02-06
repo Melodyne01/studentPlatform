@@ -1,0 +1,62 @@
+{% block body %}
+
+<div class="jumbotron text-center">
+    <h1>Personal dashboard</h1>
+</div>
+<br><br>
+<center>
+  {% if mediumNote >= 10 %}
+    <div class="alert alert-dismissible alert-success">
+      <h3>Medium note of your selection : {{mediumNote}}</h3>
+    </div>
+  {% else %}
+    <div class="alert alert-dismissible alert-danger">
+      <h3>Medium note of your selection : {{mediumNote}}</h3>
+    </div>
+  {% endif %}
+</center>
+
+<div class="container">
+	{{form_start(searchForm)}}
+	{{ form_errors(searchForm) }}
+	<div class="form-row">
+	  <div class="col">
+		{{form_row(searchForm.course, {'attr':{'placeholder':'Username'}})}}
+	  </div>
+    <div class="col">
+      {{form_row(searchForm.note, {'attr':{'placeholder':'Note'}})}}
+      </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{form_row(searchForm.apply, {'label':'Apply course'})}}
+        </div>
+    </div>
+	<div class="form-row">
+	  <div class="col">
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Rechercher</button>
+	  </div>
+  </div>
+  {{form_end(searchForm)}}
+</div>
+
+<canvas id="chart" width="400" height="100"></canvas>
+
+
+<table class="table table-hover">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Course</th>
+        <th scope="col">Note / 20</th>
+      </tr>
+    </thead>
+
+{% for note in notes %}
+<tr >
+    <a href="path('index')"><td>{{note.Course}}</td></a>
+    <td>{{note.Note}}</td>
+  </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

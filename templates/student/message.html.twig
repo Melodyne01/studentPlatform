@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h1>{{controller_name}}</h1>
+  </div>
+
+  <div class="container">
+    <a href="{{path('createConveration')}}"><button type="submit" class="btn btn-success btn-lg btn-block">Create a new conversation</button></a>
+  </div>
+  <br><br><br>
+
+  <table class="table table-hover">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Sender</th>
+        <th style="width: 700px;" scope="col">Message</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+{% for message in receivedMessages %}
+<tr>
+  <td><a style="text-decoration: none; color: black;" href="{{ path('conversation', {username: message.sender}) }}">{{message.sender}}</a></td>
+  <td><a style="text-decoration: none; color: black;" href="{{ path('conversation', {username: message.sender}) }}">{{message.message}}</a></td>
+  <td><a style="text-decoration: none; color: black;" href="{{ path('conversation', {username: message.sender}) }}">{{message.sentAt |date("F jS \\a\\t g:ia")}}</a></td>
+</tr>
+{% endfor %}
+</table>
+    
+{% endblock %}

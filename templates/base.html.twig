@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Ecampus tas capte{% endblock %}</title>
+        <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+        
+        {% block stylesheets %}{% endblock %}
+        {% block head %}{% endblock %}
+    </head>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">         
+            <div class="collapse navbar-collapse" id="navbarColor01">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('index') }}"><h5>Home</h5>
+                    <span class="sr-only">(current)</span>
+                  </a> 
+                            
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('registration') }}">Registration</a>
+                </li>         
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('searchByClass') }}">Results</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('relation') }}">Relation</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('addUE') }}">UE</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('addCourse') }}">Course</a>
+                </li>
+                {% endif %}
+                {% if (is_granted('ROLE_TEACHER')) or (is_granted('ROLE_ADMIN')) %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('addNote') }}">Note</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('addEvent') }}">Event</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_USER') %}     
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('registrationToCourse') }}">My Courses</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('dashboard', {username: app.user.username}) }}">Dashboard</a>
+                </li>
+                {% endif %}
+                {% if not app.user %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('connection') }}">Connection</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('message') }}">Messages</a>
+                </li>
+                
+                {% endif %}
+              </ul>
+              {% if app.user %}
+              <a href="{{ path('logout') }}"><svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -10px; margin-right: 60px;" width="30px" fill="white" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+              </svg></a>
+                   <a href="{{ path('edit', {username: app.user.username}) }}"><svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -10px; margin-right: 30px;" width="25px" fill="white" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                  </svg></a>
+              {% endif %}
+              
+            </div>
+          </nav>
+    </header>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+    <footer>
+      {% block footer %}
+      <br><br><br><br><br><br><br>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+               Projet Web 2020 Tanguy Baldewyns © Programmation web II
+            </li>
+          </ul>
+        </div>
+      </nav>
+      {% endblock %}
+
+    </footer>
+</html>

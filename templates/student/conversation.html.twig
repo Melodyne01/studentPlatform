@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+  <h1>Conversation with {{conversationWithFirstName}} {{conversationWithLastName}}</h1>
+</div>
+
+<br><br><br>
+{% for message in messages %}
+  {% if message.sender == app.user.username %}
+    <div class="card text-white bg-primary mb-3" style="margin-left: 700px; max-width: 20rem;">
+      <div class="card-header">{{message.sentAt |date("F jS \\a\\t g:ia")}} 
+        <a style="margin-left: 60px; color: white;" href="{{ path('deleteMessage', {id: message.id}) }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+      </svg></a></div>
+      <div class="card-body">
+        <p class="card-text">{{message.message}}
+      </div>
+    </div>
+  {% else %}
+    <div class="card text-white bg-secondary mb-3" style="max-width: 20rem; margin-left: 200px;">
+      <div class="card-header">{{message.sentAt |date("F jS \\a\\t g:ia")}} </div>
+      <div class="card-body">
+        <p class="card-text">{{message.message}}
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
+<br><br>
+{{form_start(form)}}
+{{ form_errors(form)}}
+<div class="form-group" style="margin-left: 250px; margin-right: 250px;">
+  <div class="form-row">
+    <div class="col">
+      {{form_row(form.message, {'label':false, 'attr':{'placeholder':'Message'}})}}
+      {{form_row(form.receiver, {'label':false  , 'attr':{ 'style':'display:none'}})}}
+      
+    </div>
+      <button type="submit" style="width: 80px; height: 50px;" class="btn btn-primary btn-lg btn">Send</button>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <br><br><br>
+      <br><br><br><br>
+      <a class="btn btn-primary btn-lg btn-block" href="{{ path('index') }}">Back to menu</a>
+    </div>
+  </div>
+</div>
+
+{{form_end(form)}}
+{% endblock %}
